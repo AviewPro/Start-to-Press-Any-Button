@@ -159,20 +159,24 @@ function _dTB() {
     _x.setLineDash([]);
 }
 
-/* MEMO: Hidden Ending Credits. Text scroll logic with 30% smaller font (_vh(2.8)). */
+/* MEMO: Hidden Ending with special background 'Hidden_back.gif' and scrolled text. */
 function _dHE() {
-    if (!_he) return; _x.fillStyle = 'black'; _x.fillRect(0, 0, _c.width, _c.height);
-    _x.textAlign = 'center'; _x.fillStyle = 'white'; _x.font = `${_vh(2.8)}px 'Courier New'`;
+    if (!_he) return; 
+    // Set Hidden Background
+    if (document.body.style.backgroundImage.indexOf('Hidden_back.gif') === -1) {
+        document.body.style.backgroundImage = "url('Hidden_back.gif')";
+    }
+    _x.clearRect(0, 0, _c.width, _c.height); // Allow gif background to show through if transparent, or just draw overlay
+    _x.fillStyle = 'rgba(0, 0, 0, 0.6)'; // Subtle dark overlay for readability
+    _x.fillRect(0, 0, _c.width, _c.height);
     
+    _x.textAlign = 'center'; _x.fillStyle = 'white'; _x.font = `${_vh(2.8)}px 'Courier New'`;
     const lineGap = _vh(4.5);
     _HM.forEach((line, i) => {
         let ty = (_c.height - _hy) + (i * lineGap);
-        if (ty > -_vh(5) && ty < _c.height + _vh(5)) {
-            _x.fillText(line, _c.width / 2, ty);
-        }
+        if (ty > -_vh(5) && ty < _c.height + _vh(5)) { _x.fillText(line, _c.width / 2, ty); }
     });
     _hy += 1.0;
-
     const lastLineY = (_c.height - _hy) + ((_HM.length - 1) * lineGap);
     if (lastLineY < -_vh(5)) { 
         _x.fillStyle = 'gray'; _x.font = `${_vh(3)}px 'Courier New'`; 
@@ -234,7 +238,12 @@ function _hI(e) {
     let cx, cy; const r = _c.getBoundingClientRect();
     if (e.type.startsWith('touch')) { const t = e.touches[0] || e.changedTouches[0]; cx = t.clientX - r.left; cy = t.clientY - r.top; } else { cx = e.clientX - r.left; cy = e.clientY - r.top; }
 
-    if (_he) { if (e.type === 'mousedown' || e.type === 'keydown' || e.type === 'touchstart') { _he = false; _sc = false; _cs = 1; _gs = false; document.body.style.backgroundImage = "url('space_back1.gif')"; _sa(); _uB(); _bt.r(); } return; }
+    if (_he) { if (e.type === 'mousedown' || e.type === 'keydown' || e.type === 'touchstart') { 
+        _he = false; _sc = false; _cs = 1; _gs = false; 
+        document.body.style.backgroundImage = "url('space_back1.gif')"; // Restore main background
+        _sa(); _uB(); _bt.r(); 
+    } return; }
+    
     if (!_gs && !_id && !_ie && !_sc) {
         if (e.type === 'mousedown' || e.type === 'touchstart' || e.type === 'keydown') {
             if (_hc && _cs === 1 && (e.type !== 'keydown')) { const bx = _c.width/2 - _bt.w/2, by = _bt.y + _vh(12); if (cx > bx && cx < bx + _bt.w && cy > by && cy < by + _bt.h) { _sc = true; document.body.style.backgroundImage = "url('space_back2.gif')"; _uB(); return; } }
