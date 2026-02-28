@@ -27,7 +27,7 @@ const _HM = [
 const _sB = new Audio('띠용.mp3'), _sD = new Audio('꺼지는소리.mp3'), _sC = new Audio('단체환호.mp3');
 const _mB = 0.6;
 const _b1 = new Audio('Air 8-bit.mp3'), _b2 = new Audio('Symphony no. 25 8-bit.mp3'), _b3 = new Audio('Winter, The Four Seasons 8-bit.mp3'), _b4 = new Audio('Moonlight Sonata 8-bit.mp3');
-[_b1, _b2, _b3, _b4].forEach(a => a.loop = true); _b1.volume = 0.1; _b2.volume = 0.3; _b3.volume = 0.3; _b4.volume = 0.40; _sC.volume = 0.5;_sD.volume = 0.3;
+[_b1, _b2, _b3, _b4].forEach(a => a.loop = true); _b1.volume = 0.1; _b2.volume = 0.3; _b3.volume = 0.3; _b4.volume = 0.40; _sC.volume = 0.5;_sD.volume = 0.2;
 const _iA = new Image(); _iA.src = 'Aview.png';
 
 let _gs = false, _dc = parseInt(localStorage.getItem('deathCount')) || 0, _tc = parseInt(localStorage.getItem('totalClears')) || 0, _hc = localStorage.getItem('hasCleared') === 'true';
